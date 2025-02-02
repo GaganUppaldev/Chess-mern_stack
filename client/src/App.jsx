@@ -1,54 +1,76 @@
-function App() {
-    function arr() {
-        const row = 8;
-        const col = 8;
-        const board = []; // 2D Array
-
-        for (let i = 0; i < row; i++) {
-            board[i] = [];
-            for (let z = 0; z < col; z++) {
-                board[i][z] = "c"; // 2D array board
-            }
+function App(){
+  function arr(){
+    const board = [] //2d array
+    for(let i = 0 ; i < 8; i++){
+      board[i] = []
+      for(let j =0 ; j < 8 ;j++){
+        //board[i][j] = "0" ;
+        board[i][j] = {
+          color : (i+j) %2 === 0 ? "W" : "B",
+          piece : null ,
+          
         }
 
-        console.log(board);
-        return board;
+
+      }
+
     }
 
-    const chessboard = arr();
+    for(let j = 0 ; j<8 ; j++){
+      board[1][j].piece = "pawn" ;
+      board[6][j].piece = "pawn" ;
+    }
 
-    return (
-        <>
-            <h1>Chess</h1>
-            {chessboard.map((row, rowIndex) => (
-                <div key={rowIndex}>
-                    {row.map((cell, colIndex) => (
-                        <span
-                            key={`${rowIndex}-${colIndex}`}
-                            style={{
-                                display: 'inline-block',
-                                width: '50px',
-                                height: '50px',
-                                backgroundColor: 'lightgray',
-                                border: '1px solid black',
-                                textAlign: 'center',
-                                lineHeight: '50px',
-                                marginRight: '5px'
-                            }}
-                        >
-                            {cell}
-                        </span>
-                    ))}
-                    <br />
-                </div>
-            ))}
-        </>
-    );
+    for(let j = 0 ; j <8 ;j++){
+      const stuff = ["elephant","horse","Minster" ,"King","Queen","elephant","horse","Minster"]
+      board[0][j].piece = stuff[j];
+      board[7][j].piece = stuff[j];
+    }
+
+    
+    
+
+    
+
+    return board
+  }
+  const print = arr();
+  console.log(print);
+  return(
+    <>
+    <h1>Chess</h1>
+    {print.map((row,rowindex) => (
+      <div key={rowindex} style={{display: "flex"}}>
+        {row.map((cell,celindex) => (
+          <span key={`${rowindex}-${celindex}`}
+          style = {{
+            width : "70px",
+            height : "50px",
+            backgroundColor: cell.color === "W" ? "white" : "gray",
+            border: "1px solid red",
+          }} 
+
+          
+          >
+            
+            {cell.piece || ""}
+
+
+          </span>
+          
+
+        
+        ))}
+
+      </div>
+    ))}
+    
+    </>
+    
+    
+  
+  )
 }
 
 export default App;
-
-
-
-
 
