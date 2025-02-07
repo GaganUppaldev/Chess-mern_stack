@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 
-function App() {
+function ChessBoard() {
   function arr() {
     const board = []; // 2D array
     for (let i = 0; i < 8; i++) {
@@ -73,6 +74,26 @@ function App() {
           ))}
         </div>
       ))}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <nav>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+        <Link to="/chess-board">
+          <button>Chess Board</button>
+        </Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<h1>Welcome to Multiplayer Chess</h1>} />
+        <Route path="/chess-board" element={<ChessBoard />} />
+      </Routes>
     </>
   );
 }
