@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 function ChessBoard() {
   function arr() {
@@ -33,13 +34,23 @@ function ChessBoard() {
   const [board, setBoard] = useState(arr());
   const [selectedPiece, setSelectedPiece] = useState(null);
 
-  const handleClick = (row, col) => {
-    // Copy the board state to avoid direct mutation
+  const handleClick = async (row, col) => {
     const newBoard = [...board];
 
     if (!selectedPiece && newBoard[row][col].piece) {
       // Select the piece
       setSelectedPiece({ row, col, piece: newBoard[row][col].piece });
+
+      // Send Axios POST request with the piece information
+      try {
+        const response = await axios.post("http://localhost:4000/move", {
+          piece: newBoard[row][col].piece,
+          position: { row, col },
+        });
+        console.log("Server response:", response.data);
+      } catch (error) {
+        console.error("Error sending data to backend:", error);
+      }
     } else if (selectedPiece) {
       // Move the piece to the new cell
       newBoard[selectedPiece.row][selectedPiece.col].piece = null;
