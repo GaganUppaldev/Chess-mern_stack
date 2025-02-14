@@ -2,28 +2,49 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-
-// Use CORS middleware
 app.use(cors());
-
-// Middleware to parse JSON request bodies
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Chess server is active");
-});
-
 app.post("/move", (req, res) => {
-    const piece = req.body.piece; // Get 'piece' from the request body
+  const { piece, position, board } = req.body;
+  const { row, col } = position;
+  const validMoves = [];
 
-    if (piece === "pawn") {
-        console.log("Pawn got clicked");
+  if (piece.startsWith("pawn")) {
+    const isWhite = piece.endsWith("W");
+    const direction = isWhite ? 1 : -1; // White moves down, Black moves up
+
+    // Forward move (one step)
+    if (board[row + direction] && !board[row + direction][col].piece) {
+      validMoves.push({ row: row + direction, col });
     }
 
-    res.send({ message: "Move received", piece });
+    // Forward move (two steps) from starting position
+    const startingRow = isWhite ? 1 : 6;
+    if (
+      row === startingRow &&
+      board[row + direction] &&
+      !board[row + direction][col].piece &&
+      board[row + 2 * direction] &&
+      !board[row + 2 * direction][col].piece
+    ) {
+      validMoves.push({ row: row + 2 * direction, col });
+    }
+
+    // Diagonal attack
+    [-1, 1].forEach((diagonal) => {
+      if (
+        board[row + direction] &&
+        board[row + direction][col + diagonal] &&
+        board[row + direction][col + diagonal].piece &&
+        board[row + direction][col + diagonal].piece.endsWith(isWhite ? "B" : "W")
+      ) {
+        validMoves.push({ row: row + direction, col: col + diagonal });
+      }
+    });
+  }
+
+  res.json({ validMoves });
 });
 
-const PORT = 4000;
-app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-});
+app.listen(4000, () => console.log("Server running on port 4000"));
