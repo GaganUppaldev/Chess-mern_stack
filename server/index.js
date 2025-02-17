@@ -44,7 +44,18 @@ app.post("/move", (req, res) => {
     });
   }
 
+  if(piece.startsWith("rook")){
+    if(piece.endsWith("W")){
+      console.log("Rooked White clicked");
+    }else if(piece.endsWith("B")){
+      console.log("black rooked clicked");
+    }
+    
+  }
+
   res.json({ validMoves });
+
+  
 });
 
 app.listen(4000, () => console.log("Server running on port 4000"));
