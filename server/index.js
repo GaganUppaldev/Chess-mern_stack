@@ -50,7 +50,10 @@ app.post("/move", (req, res) => {
     }else if(piece.endsWith("B")){
       console.log("black rooked clicked");
     }
-    
+
+  //movement :
+  const isWhite = piece.endsWith("W");
+  const direction = isWhite ? 1:-1;
   }
 
   res.json({ validMoves });
