@@ -54,9 +54,28 @@ app.post("/move", (req, res) => {
   //movement :
   const isWhite = piece.endsWith("W");
   const direction = isWhite ? 1:-1;
+
+  //white means downward movement
+  if(direction === 1){
+    /*if(board[row + direction][col].piece = null){
+      
+    }*/
+    for (let i = 1; i < 9; ) {
+
+     if(board[row - i][col].piece ===  null){
+      i++ ;
+    } else {
+      console.log("row = " + row-i + "col" + col )
+      break;
+    }
+      
+    }
+   
   }
 
-  res.json({ validMoves });
+  }
+
+  //res.json({ validMoves });
 
   
 });
