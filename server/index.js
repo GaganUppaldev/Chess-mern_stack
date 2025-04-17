@@ -61,15 +61,15 @@ app.post("/move", (req, res) => {
       
     }*/
     for (let i = 1; i < 9; ) {
-
-     if(board[row - i][col].piece ===  null){
-      i++ ;
-    } else {
-      console.log("row = " + row-i + "col" + col )
-      break;
+      if (board[row - i] && board[row - i][col] && board[row - i][col].piece === null) {
+        // safe to access now
+        i++;
+      } else {
+        console.log("row = " + (row - i) + " col = " + col);
+        break;
+      }
     }
-      
-    }
+    
    
   }
 
