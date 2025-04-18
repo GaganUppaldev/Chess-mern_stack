@@ -69,7 +69,20 @@ app.post("/move", (req, res) => {
         break;
       }
     }
+
+    //for downward direction white rook logic 
+
+    for (let i = 1; i < 9; ) {
+      if (board[row + i] && board[row + i][col] && board[row + i][col].piece === null) {
+        
+        i++;
+      } else {
+        console.log("row = " + (row + i) + " col = " + col);
+        break;
+      }
+    }
     
+
    
   }
 
