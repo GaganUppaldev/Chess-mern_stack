@@ -82,13 +82,43 @@ app.post("/move", (req, res) => {
       }
     }
     
+    //for right side durection white rook logic :
+ 
+    for(let i = 1 ; i <9 ;){
+      if(board[col+i] && board[row][col+i]  && board[row][col+i].piece === null){
+
+        i++;
+
+      }else{
+
+        console.log("row = " + row  + " col = " + (col+i));
+        break;
+
+      }
+    }
+
+    //for left side 
+
+    for(let i = 1 ;i <9 ; ){
+      if(board[col-i] && board[row][col-i]  && board[row][col-i].piece === null){
+
+        i++;
+
+      }else{
+
+        console.log("row = " + row + " col = " + (col-i));
+        break;
+
+      }
+    }
+
 
    
   }
 
   }
 
-  //res.json({ validMoves });
+  res.json({ validMoves });
 
   
 });
