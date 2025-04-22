@@ -60,7 +60,7 @@ app.post("/move", (req, res) => {
     /*if(board[row + direction][col].piece = null){
       
     }*/
-    for (let i = 1; i < 9; ) {
+    for (let i = 0; i < 9; ) {
       if (board[row - i] && board[row - i][col] && board[row - i][col].piece === null) {
         // safe to access now
         i++;
@@ -72,7 +72,7 @@ app.post("/move", (req, res) => {
 
     //for downward direction white rook logic 
 
-    for (let i = 1; i < 9; ) {
+    for (let i = 0; i < 9; ) {
       if (board[row + i] && board[row + i][col] && board[row + i][col].piece === null) {
         
         i++;
@@ -84,7 +84,7 @@ app.post("/move", (req, res) => {
     
     //for right side durection white rook logic :
  
-    for(let i = 1 ; i <9 ;){
+    for(let i = 0 ; i <9 ;){
       if(board[col+i] && board[row][col+i]  && board[row][col+i].piece === null){
 
         i++;
@@ -99,7 +99,7 @@ app.post("/move", (req, res) => {
 
     //for left side 
 
-    for(let i = 1 ;i <9 ; ){
+    for(let i = 0 ;i <9 ; ){
       if(board[col-i] && board[row][col-i]  && board[row][col-i].piece === null){
 
         i++;
